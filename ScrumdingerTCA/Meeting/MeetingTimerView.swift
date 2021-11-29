@@ -66,10 +66,10 @@ struct MeetingTimerView: View {
               .font(.title)
             Text("is speaking")
 
-          Image(systemName: viewStore.isRecording ? "mic" : "mic.slash")
-            .font(.title)
-            .padding(.top)
-            .accessibilityLabel(viewStore.isRecording ? "with transcription" : "without transcription")
+            Image(systemName: viewStore.isRecording ? "mic" : "mic.slash")
+              .font(.title)
+              .padding(.top)
+              .accessibilityLabel(viewStore.isRecording ? "with transcription" : "without transcription")
           } else {
             Text("Finished")
               .font(.title)

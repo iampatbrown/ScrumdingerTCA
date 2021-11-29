@@ -18,11 +18,10 @@ struct FileClient {
     _ data: A, to fileName: String
   ) -> Effect<Never, Never> {
     Effect.catching { try JSONEncoder().encode(data) }
-      .flatMap { self.save($0, to: fileName) }
+      .flatMap { self.save(fileName, $0) }
       .fireAndForget()
   }
 }
-
 
 extension FileClient {
   static let failing = Self(

@@ -73,6 +73,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
 
 struct AppView: View {
   let store: Store<AppState, AppAction>
+  @Environment(\.scenePhase) private var scenePhase
 
   var body: some View {
     WithViewStore(self.store.stateless) { viewStore in
@@ -86,6 +87,7 @@ struct AppView: View {
       }
       .navigationViewStyle(.stack)
       .onAppear { viewStore.send(.onAppear) }
+      .onChange(of: scenePhase) { viewStore.send(.scenePhaseChanged($0)) }
     }
   }
 }

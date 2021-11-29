@@ -45,7 +45,6 @@ let scrumReducer = Reducer<Scrum, ScrumAction, ScrumEnvironment>.combine(
       environment: { _ in }
     ),
 
- 
   Reducer { state, action, environment in
     switch action {
     case .doneEditingButtonTapped:
