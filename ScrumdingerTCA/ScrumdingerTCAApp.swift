@@ -1,17 +1,25 @@
-//
-//  ScrumdingerTCAApp.swift
-//  ScrumdingerTCA
-//
-//  Created by Pat Brown on 29/11/21.
-//
-
 import SwiftUI
+import ComposableArchitecture
 
 @main
 struct ScrumdingerTCAApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+          AppView(
+            store: Store(
+              initialState: AppState(),
+              reducer: appReducer.debug(actionFormat: .labelsOnly),
+              environment: AppEnvironment(
+                audioPlayerClient: .live,
+                backgroundQueue: DispatchQueue.global(qos: .background).eraseToAnyScheduler(),
+                date: Date.init,
+                fileClient: .live,
+                mainQueue: .main,
+                speechClient: .live,
+                uuid: UUID.init
+              )
+            )
+          )
         }
     }
 }
