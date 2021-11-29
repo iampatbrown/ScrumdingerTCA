@@ -8,7 +8,7 @@ struct ScrumdingerTCAApp: App {
           AppView(
             store: Store(
               initialState: AppState(),
-              reducer: appReducer.debug(actionFormat: .labelsOnly),
+              reducer: appReducer,
               environment: AppEnvironment(
                 audioPlayerClient: .live,
                 backgroundQueue: DispatchQueue.global(qos: .background).eraseToAnyScheduler(),
