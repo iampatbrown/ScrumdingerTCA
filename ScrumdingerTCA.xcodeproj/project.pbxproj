@@ -13,7 +13,7 @@
 		23C5F7C727542A40006F0DE1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 23C5F7C627542A40006F0DE1 /* ComposableArchitecture */; };
 		23C5F7CB27542BE2006F0DE1 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7CA27542BE2006F0DE1 /* EditView.swift */; };
 		23C5F7CD27542C5E006F0DE1 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7CC27542C5E006F0DE1 /* Color.swift */; };
-		23C5F7CF27542E7F006F0DE1 /* SpeechRecognitionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7CE27542E7F006F0DE1 /* SpeechRecognitionState.swift */; };
+		23C5F7CF27542E7F006F0DE1 /* SpeechRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7CE27542E7F006F0DE1 /* SpeechRecognition.swift */; };
 		23C5F7D227542EBB006F0DE1 /* SpeechClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7D127542EBB006F0DE1 /* SpeechClient.swift */; };
 		23C5F7D427542ED3006F0DE1 /* SpeechClientModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7D327542ED3006F0DE1 /* SpeechClientModels.swift */; };
 		23C5F7D627542FB3006F0DE1 /* LiveSpeechClient.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23C5F7D527542FB3006F0DE1 /* LiveSpeechClient.swift.swift */; };
@@ -54,7 +54,7 @@
 		23C5F740275424D4006F0DE1 /* ScrumdingerTCATests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrumdingerTCATests.swift; sourceTree = "<group>"; };
 		23C5F7CA27542BE2006F0DE1 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		23C5F7CC27542C5E006F0DE1 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		23C5F7CE27542E7F006F0DE1 /* SpeechRecognitionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognitionState.swift; sourceTree = "<group>"; };
+		23C5F7CE27542E7F006F0DE1 /* SpeechRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognition.swift; sourceTree = "<group>"; };
 		23C5F7D127542EBB006F0DE1 /* SpeechClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechClient.swift; sourceTree = "<group>"; };
 		23C5F7D327542ED3006F0DE1 /* SpeechClientModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechClientModels.swift; sourceTree = "<group>"; };
 		23C5F7D527542FB3006F0DE1 /* LiveSpeechClient.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveSpeechClient.swift.swift; sourceTree = "<group>"; };
@@ -173,7 +173,7 @@
 				23C5F7D92754376B006F0DE1 /* MeetingTimer.swift */,
 				23C5F82327545F47006F0DE1 /* MeetingTimerView.swift */,
 				23C5F7D727543605006F0DE1 /* MeetingView.swift */,
-				23C5F7CE27542E7F006F0DE1 /* SpeechRecognitionState.swift */,
+				23C5F7CE27542E7F006F0DE1 /* SpeechRecognition.swift */,
 			);
 			path = Meeting;
 			sourceTree = "<group>";
@@ -329,7 +329,7 @@
 				23C5F8172754566F006F0DE1 /* LiveAudioPlayerClient.swift in Sources */,
 				23C5F832275463A3006F0DE1 /* LiveFileClient.swift in Sources */,
 				23C5F812275455DC006F0DE1 /* ScrumView.swift in Sources */,
-				23C5F7CF27542E7F006F0DE1 /* SpeechRecognitionState.swift in Sources */,
+				23C5F7CF27542E7F006F0DE1 /* SpeechRecognition.swift in Sources */,
 				23C5F82227545F40006F0DE1 /* HistoryView.swift in Sources */,
 				23C5F82727545F47006F0DE1 /* MeetingFooterView.swift in Sources */,
 				23C5F7CB27542BE2006F0DE1 /* EditView.swift in Sources */,

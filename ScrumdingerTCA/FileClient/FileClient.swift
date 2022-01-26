@@ -7,19 +7,19 @@ struct FileClient {
   var save: (String, Data) -> Effect<Never, Error>
 
   func load<A: Decodable>(
-    _ type: A.Type, from fileName: String
+    _ type: A.Type, from filename: String
   ) -> Effect<Result<A, NSError>, Never> {
-    self.load(fileName)
+    self.load(filename)
       .decode(type: A.self, decoder: JSONDecoder())
       .mapError { $0 as NSError }
       .catchToEffect()
   }
 
   func save<A: Encodable>(
-    _ data: A, to fileName: String
+    _ data: A, to filename: String
   ) -> Effect<Never, Never> {
     Effect.catching { try JSONEncoder().encode(data) }
-      .flatMap { self.save(fileName, $0) }
+      .flatMap { self.save(filename, $0) }
       .fireAndForget()
   }
 }
@@ -34,18 +34,18 @@ extension FileClient {
   static var mock: Self {
     var storage = [String: Data]()
     return Self(
-      delete: { fileName in
-        .fireAndForget { storage[fileName] = nil }
+      delete: { filename in
+        .fireAndForget { storage[filename] = nil }
       },
-      load: { fileName in
-        if let data = storage[fileName] {
+      load: { filename in
+        if let data = storage[filename] {
           return Effect(value: data)
         } else {
           return Effect(error: NSError(domain: "", code: NSFileReadNoSuchFileError))
         }
       },
-      save: { fileName, data in
-        .fireAndForget { storage[fileName] = data }
+      save: { filename, data in
+        .fireAndForget { storage[filename] = data }
       }
     )
   }
