@@ -13,4 +13,6 @@ extension AudioPlayerClient {
   static let failing = Self(
     play: { .failing("\(Self.self).play(\($0)) is unimplemented") }
   )
+
+  static let noop = Self(play: { _ in .none })
 }

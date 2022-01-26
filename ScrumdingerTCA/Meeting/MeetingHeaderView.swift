@@ -16,13 +16,13 @@ struct MeetingHeaderView: View {
     }
 
     var progress: Double {
-      guard secondsRemaining > 0 else { return 1 }
-      let totalSeconds = Double(secondsElapsed + secondsRemaining)
-      return Double(secondsElapsed) / totalSeconds
+      guard self.secondsRemaining > 0 else { return 1 }
+      let totalSeconds = Double(secondsElapsed + self.secondsRemaining)
+      return Double(self.secondsElapsed) / totalSeconds
     }
 
-    var minutesRemaining: Int { secondsRemaining / 60 }
-    var minutesRemainingMetric: String { minutesRemaining == 1 ? "minute" : "minutes" }
+    var minutesRemaining: Int { self.secondsRemaining / 60 }
+    var minutesRemainingMetric: String { self.minutesRemaining == 1 ? "minute" : "minutes" }
   }
 
   var body: some View {

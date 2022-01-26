@@ -122,7 +122,8 @@ extension Meeting {
   init(state: Scrum) {
     self.scrumColor = state.color
     self.timer = MeetingTimer(lengthInMinutes: state.lengthInMinutes)
-    self.speakers = state.attendees.isEmpty ? [Speaker(name: "Someone")] : state.attendees.map { Speaker(name: $0) }
+    self.speakers = state.attendees.isEmpty ? [Speaker(name: "Someone")] : state.attendees
+      .map { Speaker(name: $0) }
   }
 }
 
@@ -232,11 +233,11 @@ struct ScrumView: View {
             ),
             then: EditView.init(store:)
           )
-          .navigationTitle(viewStore.title)
-          .navigationBarItems(
-            leading: Button("Cancel") { viewStore.send(.setEditing(isPresented: false)) },
-            trailing: Button("Done") { viewStore.send(.doneEditingButtonTapped) }
-          )
+            .navigationTitle(viewStore.title)
+            .navigationBarItems(
+              leading: Button("Cancel") { viewStore.send(.setEditing(isPresented: false)) },
+              trailing: Button("Done") { viewStore.send(.doneEditingButtonTapped) }
+            )
         }
       }
     }

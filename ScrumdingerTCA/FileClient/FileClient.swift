@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 
 struct FileClient {
   var delete: (String) -> Effect<Never, Error>
@@ -29,4 +30,23 @@ extension FileClient {
     load: { .failing("\(Self.self).load(\($0)) is unimplemented") },
     save: { file, _ in .failing("\(Self.self).save(\(file)) is unimplemented") }
   )
+
+  static var mock: Self {
+    var storage = [String: Data]()
+    return Self(
+      delete: { fileName in
+        .fireAndForget { storage[fileName] = nil }
+      },
+      load: { fileName in
+        if let data = storage[fileName] {
+          return Effect(value: data)
+        } else {
+          return Effect(error: NSError(domain: "", code: NSFileReadNoSuchFileError))
+        }
+      },
+      save: { fileName, data in
+        .fireAndForget { storage[fileName] = data }
+      }
+    )
+  }
 }

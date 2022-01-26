@@ -11,11 +11,16 @@ struct MeetingFooterView: View {
       self.speakers = state.speakers
     }
 
-    var speakerNumber: Int? { speakers.firstIndex(where: { !$0.isCompleted }).map { $0 + 1 } }
-    var hasNextSpeaker: Bool { speakerNumber ?? speakers.count < speakers.count }
-    var isLastSpeaker: Bool { speakerNumber == speakers.count }
+    var speakerNumber: Int? { self.speakers.firstIndex(where: { !$0.isCompleted }).map { $0 + 1 } }
+    var hasNextSpeaker: Bool { self.speakerNumber ?? self.speakers.count < self.speakers.count }
+    var isLastSpeaker: Bool { self.speakerNumber == self.speakers.count }
     var speakerText: String {
-      speakerNumber.map { isLastSpeaker ? "Last Speaker" : "Speaker \($0) of \(speakers.count)" } ?? "No more speakers"
+      self.speakerNumber
+        .map {
+          isLastSpeaker
+            ? "Last Speaker"
+            : "Speaker \($0) of \(speakers.count)"
+        } ?? "No more speakers"
     }
   }
 

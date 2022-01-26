@@ -5,15 +5,15 @@ struct SpeakerArc: Shape {
   let speakerIndex: Int
   let totalSpeakers: Int
   private var degreesPerSpeaker: Double {
-    360.0 / Double(totalSpeakers)
+    360.0 / Double(self.totalSpeakers)
   }
 
   private var startAngle: Angle {
-    Angle(degrees: degreesPerSpeaker * Double(speakerIndex) + 1.0)
+    Angle(degrees: self.degreesPerSpeaker * Double(self.speakerIndex) + 1.0)
   }
 
   private var endAngle: Angle {
-    Angle(degrees: startAngle.degrees + degreesPerSpeaker - 1.0)
+    Angle(degrees: self.startAngle.degrees + self.degreesPerSpeaker - 1.0)
   }
 
   func path(in rect: CGRect) -> Path {
@@ -51,7 +51,9 @@ struct MeetingTimerView: View {
       self.scrumColor = state.scrumColor
       self.speakers = state.speakers
       let tickOffset = state.timer.isActive ? 1 : 0
-      self.timerTrim = Double(state.timer.secondsElapsed + tickOffset) / Double(state.timer.lengthInSeconds)
+      self
+        .timerTrim = Double(state.timer.secondsElapsed + tickOffset) /
+        Double(state.timer.lengthInSeconds)
     }
   }
 
@@ -69,7 +71,10 @@ struct MeetingTimerView: View {
             Image(systemName: viewStore.isRecording ? "mic" : "mic.slash")
               .font(.title)
               .padding(.top)
-              .accessibilityLabel(viewStore.isRecording ? "with transcription" : "without transcription")
+              .accessibilityLabel(
+                viewStore
+                  .isRecording ? "with transcription" : "without transcription"
+              )
           } else {
             Text("Finished")
               .font(.title)
@@ -86,7 +91,10 @@ struct MeetingTimerView: View {
           .animation(.linear(duration: 1), value: viewStore.timerTrim)
 
         ForEach(viewStore.speakers) { speaker in
-          if speaker.isCompleted, let index = viewStore.speakers.firstIndex(where: { $0.id == speaker.id }) {
+          if
+            speaker.isCompleted,
+            let index = viewStore.speakers.firstIndex(where: { $0.id == speaker.id })
+          {
             SpeakerArc(speakerIndex: index, totalSpeakers: viewStore.speakers.count)
               .rotation(Angle(degrees: -90))
               .stroke(viewStore.scrumColor, lineWidth: 12)

@@ -98,16 +98,35 @@ let speechRecognitionReducer = Reducer<
 }
 
 extension AlertState where Action == SpeechRecognitionAction {
-  static var failure: Self { .init(title: .init("An error occured while transcribing. Please try again.")) }
-  static var isRecording: Self { .init(title: .init("Speech recognition task already in progress.")) }
+  static var failure: Self {
+    .init(title: .init("An error occured while transcribing. Please try again."))
+  }
+
+  static var isRecording: Self {
+    .init(title: .init("Speech recognition task already in progress."))
+  }
+
   static var recordPermissionDenied: Self {
-    .init(title: .init("Access to microphone was denied. This app needs access to transcribe your speech."))
+    .init(
+      title: .init(
+        "Access to microphone was denied. This app needs access to transcribe your speech."
+      )
+    )
   }
 
   static var speechRecognitionDenied: Self {
-    .init(title: .init("Access to speech recognition was denied. This app needs access to transcribe your speech."))
+    .init(
+      title: .init(
+        "Access to speech recognition was denied. This app needs access to transcribe your speech."
+      )
+    )
   }
 
-  static var speechRecognitionRestricted: Self { .init(title: .init("Your device does not allow speech recognition.")) }
-  static var unknown: Self { .init(title: .init("Speech recognition permissions were unable to be determined.")) }
+  static var speechRecognitionRestricted: Self {
+    .init(title: .init("Your device does not allow speech recognition."))
+  }
+
+  static var unknown: Self {
+    .init(title: .init("Speech recognition permissions were unable to be determined."))
+  }
 }

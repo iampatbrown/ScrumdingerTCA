@@ -46,7 +46,7 @@ struct EditView: View {
               step: 1.0,
               label: { Text("Length") }
             )
-            .accessibilityValue(Text("\(Int(viewStore.lengthInMinutes)) minutes"))
+              .accessibilityValue(Text("\(Int(viewStore.lengthInMinutes)) minutes"))
             Spacer()
             Text("\(Int(viewStore.lengthInMinutes)) minutes")
               .accessibilityHidden(true)

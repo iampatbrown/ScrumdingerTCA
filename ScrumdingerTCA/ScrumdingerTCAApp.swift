@@ -11,12 +11,8 @@ struct ScrumdingerTCAApp: App {
           reducer: appReducer,
           environment: AppEnvironment(
             audioPlayerClient: .live,
-            backgroundQueue: DispatchQueue.global(qos: .background).eraseToAnyScheduler(),
-            date: Date.init,
             fileClient: .live,
-            mainQueue: .main,
-            speechClient: .live,
-            uuid: UUID.init
+            speechClient: .live
           )
         )
       )

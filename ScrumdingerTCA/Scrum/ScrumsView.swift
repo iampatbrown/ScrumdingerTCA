@@ -21,6 +21,7 @@ struct ScrumsEnvironment {
   var audioPlayerClient: AudioPlayerClient
   var date: () -> Date
   var mainQueue: AnySchedulerOf<DispatchQueue>
+  var randomColor: () -> Color
   var speechClient: SpeechClient
   var uuid: () -> UUID
 }
@@ -66,7 +67,7 @@ let scrumsReducer = Reducer<Scrums, ScrumsAction, ScrumsEnvironment>.combine(
 
     case .setNewScrumSheet(isPresented: true):
       if state.newScrum == nil {
-        state.newScrum = EditState()
+        state.newScrum = EditState(color: environment.randomColor())
       }
       return .none
 
@@ -125,10 +126,10 @@ struct ScrumsView: View {
             ),
             then: EditView.init(store:)
           )
-          .navigationBarItems(
-            leading: Button("Cancel") { viewStore.send(.setNewScrumSheet(isPresented: false)) },
-            trailing: Button("Add") { viewStore.send(.addScrumButtonTapped) }
-          )
+            .navigationBarItems(
+              leading: Button("Cancel") { viewStore.send(.setNewScrumSheet(isPresented: false)) },
+              trailing: Button("Add") { viewStore.send(.addScrumButtonTapped) }
+            )
         }
       }
     }

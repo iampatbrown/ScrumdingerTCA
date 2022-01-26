@@ -8,9 +8,14 @@ struct Meeting: Equatable {
   var speechRecognition: SpeechRecognitionState = .init()
   var timer: MeetingTimer = .init()
 
-  var attendees: [String] { speakers.map(\.name) }
-  var secondsElapsedForSpeaker: Int { timer.secondsElapsed - Int(secondsPerSpeaker * Double(activeSpeakerIndex)) }
-  var secondsPerSpeaker: Double { Double(timer.lengthInMinutes * 60) / Double(max(speakers.count, 1)) }
+  var attendees: [String] { self.speakers.map(\.name) }
+  var secondsElapsedForSpeaker: Int {
+    self.timer.secondsElapsed - Int(self.secondsPerSpeaker * Double(self.activeSpeakerIndex))
+  }
+
+  var secondsPerSpeaker: Double {
+    Double(self.timer.lengthInMinutes * 60) / Double(max(self.speakers.count, 1))
+  }
 
   struct Speaker: Equatable, Identifiable {
     let name: String
@@ -37,7 +42,9 @@ let meetingReducer = Reducer<Meeting, MeetingAction, MeetingEnvironment>.combine
   speechRecognitionReducer.pullback(
     state: \Meeting.speechRecognition,
     action: /MeetingAction.speechRecognition,
-    environment: { SpeechRecognitionEnvironment(mainQueue: $0.mainQueue, speechClient: $0.speechClient) }
+    environment: {
+      SpeechRecognitionEnvironment(mainQueue: $0.mainQueue, speechClient: $0.speechClient)
+    }
   ),
 
   meetingTimerReducer.pullback(
@@ -49,10 +56,15 @@ let meetingReducer = Reducer<Meeting, MeetingAction, MeetingEnvironment>.combine
   Reducer { state, action, environment in
     switch action {
     case .finish:
-      return .merge(
-        Effect(value: .timer(.stop)),
-        Effect(value: .speechRecognition(.stop))
-      )
+      var effects = [Effect<MeetingAction, Never>]()
+      if state.timer.isActive {
+        effects.append(Effect(value: .timer(.stop)))
+      }
+      if state.speechRecognition.isRecording {
+        effects.append(Effect(value: .speechRecognition(.stop)))
+      }
+
+      return .merge(effects)
 
     case .onAppear:
       return .merge(

@@ -18,7 +18,10 @@ extension Reducer {
       let localState = state[keyPath: toLocalState]
       let globalEffects = self.run(&state, action, environment)
 
-      if let initialState = localState, state[keyPath: toLocalState] == nil { // global action has set state to nil
+      if
+        let initialState = localState,
+        state[keyPath: toLocalState] == nil
+      { // global action has set state to nil
         state[keyPath: toLocalState] = initialState
         _ = localReducer.runAndPerformEffects(&state, toLocalAction.embed(onDisappear), environment)
         // Could breakpoint here and check !didComplete or diff(state[keyPath: toLocalState], initialState)
@@ -35,7 +38,11 @@ extension Reducer {
 }
 
 extension Reducer {
-  private func runAndPerformEffects(_ state: inout State, _ action: Action, _ environment: Environment) -> Bool {
+  private func runAndPerformEffects(
+    _ state: inout State,
+    _ action: Action,
+    _ environment: Environment
+  ) -> Bool {
     let effects = self.run(&state, action, environment)
     var actions: [Action] = []
 

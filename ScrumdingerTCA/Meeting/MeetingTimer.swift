@@ -5,8 +5,8 @@ struct MeetingTimer: Equatable {
   var isActive: Bool = false
   var secondsElapsed: Int = 0
 
-  var lengthInSeconds: Int { lengthInMinutes * 60 }
-  var secondsRemaining: Int { max(lengthInSeconds - secondsElapsed, 0) }
+  var lengthInSeconds: Int { self.lengthInMinutes * 60 }
+  var secondsRemaining: Int { max(self.lengthInSeconds - self.secondsElapsed, 0) }
 }
 
 enum MeetingTimerAction: Equatable {

@@ -13,13 +13,15 @@ enum AppAction {
 }
 
 struct AppEnvironment {
-  var audioPlayerClient: AudioPlayerClient
-  var backgroundQueue: AnySchedulerOf<DispatchQueue>
-  var date: () -> Date
-  var fileClient: FileClient
-  var mainQueue: AnySchedulerOf<DispatchQueue>
-  var speechClient: SpeechClient
-  var uuid: () -> UUID
+  var audioPlayerClient: AudioPlayerClient = .noop
+  var backgroundQueue: AnySchedulerOf<DispatchQueue> = DispatchQueue.global(qos: .background)
+    .eraseToAnyScheduler()
+  var date: () -> Date = Date.init
+  var fileClient: FileClient = .mock
+  var mainQueue: AnySchedulerOf<DispatchQueue> = .main
+  var randomColor: () -> Color = { .random }
+  var speechClient: SpeechClient = .mock
+  var uuid: () -> UUID = UUID.init
 }
 
 let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
@@ -31,6 +33,7 @@ let appReducer = Reducer<AppState, AppAction, AppEnvironment>.combine(
         audioPlayerClient: $0.audioPlayerClient,
         date: $0.date,
         mainQueue: $0.mainQueue,
+        randomColor: $0.randomColor,
         speechClient: $0.speechClient,
         uuid: $0.uuid
       )

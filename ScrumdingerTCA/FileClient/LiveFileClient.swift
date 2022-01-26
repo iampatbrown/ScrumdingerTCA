@@ -27,7 +27,6 @@ extension FileClient {
       },
       save: { fileName, data in
         .fireAndForget {
-          print("Saving: \(fileName) \(data)")
           try? data.write(
             to: documentDirectory
               .appendingPathComponent(fileName)
