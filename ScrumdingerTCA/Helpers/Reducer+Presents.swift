@@ -9,24 +9,30 @@ extension Reducer {
     environment toLocalEnvironment: @escaping (Environment) -> LocalEnvironment,
     onDisappear: LocalAction
   ) -> Self {
-    return Self { state, action, environment in
-      let localReducer = localReducer
-        .optional()
-        .pullback(state: toLocalState, action: toLocalAction, environment: toLocalEnvironment)
+    let presentedReducer = localReducer
+      .optional()
+      .pullback(
+        state: toLocalState,
+        action: toLocalAction,
+        environment: toLocalEnvironment
+      )
 
-      let localEffects = localReducer.run(&state, action, environment)
-      let localState = state[keyPath: toLocalState]
+    return Self { state, action, environment in
+      let localEffects = presentedReducer.run(&state, action, environment)
+      let initialState = state[keyPath: toLocalState]
       let globalEffects = self.run(&state, action, environment)
 
       if
-        let initialState = localState,
+        var localState = initialState,
         state[keyPath: toLocalState] == nil
       { // global action has set state to nil
-        state[keyPath: toLocalState] = initialState
-        _ = localReducer.runAndPerformEffects(&state, toLocalAction.embed(onDisappear), environment)
+        _ = localReducer.runAndPerformEffects(
+          &localState,
+          onDisappear,
+          toLocalEnvironment(environment)
+        )
         // Could breakpoint here and check !didComplete or diff(state[keyPath: toLocalState], initialState)
         // in this case I don't care about state changes after onDisappear
-        state[keyPath: toLocalState] = nil
       }
 
       return .merge(
